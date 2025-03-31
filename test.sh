@@ -1,0 +1,1 @@
+python3 -m unittest discover -s src/html_nodes/tests -v
