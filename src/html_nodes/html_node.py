@@ -21,9 +21,9 @@ class HTMLNode():
         # print(self.props)
         if self.props:
             props = self.props.copy()
-            return " " + (" ".join([f"{key}={props[key]}" for key in props]))
+            return " " + (" ".join([f'{key}="{props[key]}"' for key in props]))
         else:
-            raise TypeError
+            raise TypeError("There are no props")
 
     def __repr__(self):
         return f"""HTMLNode(

@@ -6,10 +6,10 @@ from src.html_nodes.leaf_node import LeafNode
 class TestLeafNode(unittest.TestCase):
     def test_leaf_to_html(self):
         with self.assertRaises(ValueError):
-            LeafNode(None, "<p>", None).to_html()
+            LeafNode("<p>", None).to_html()
 
         self.assertEqual(
-            LeafNode("Value", None, None).to_html(),
+            LeafNode(None, "Value").to_html(),
             "Value"
         )
 
@@ -21,23 +21,23 @@ class TestLeafNode(unittest.TestCase):
             ).to_html()
 
         self.assertEqual(
-            LeafNode("Value", "p", None).to_html(),
+            LeafNode( "p", "Value", None).to_html(),
             "<p>Value</p>"
         )
 
         self.assertEqual(
             LeafNode(
-                "Value",
                 "p",
+                "Value",
                 {"param": "value", "param2": "value2"}
             ).to_html(),
-            "<p param=value param2=value2>Value</p>"
+            '<p param="value" param2="value2">Value</p>'
         )
 
         self.assertEqual(
             LeafNode(
-                "Value",
                 None,
+                "Value",
                 {"param": "value", "param2": "value2"}
             ).to_html(),
             "Value"
@@ -45,11 +45,11 @@ class TestLeafNode(unittest.TestCase):
 
         self.assertEqual(
             LeafNode(
-                2,
                 "h2",
+                2,
                 {"param": "value", "param2": "value2"}
             ).to_html(),
-            "<h2 param=value param2=value2>2</h2>"
+            '<h2 param="value" param2="value2">2</h2>'
         )
 
 

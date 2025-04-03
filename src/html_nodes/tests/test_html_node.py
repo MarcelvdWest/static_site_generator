@@ -1,6 +1,7 @@
 import unittest
 
 from src.html_nodes.html_node import HTMLNode
+from src.html_nodes.text_node import TextNode, TextType, text_node_to_html_node
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -9,7 +10,7 @@ class TestHTMLNode(unittest.TestCase):
             HTMLNode(
                 "<h1>", "value", "<p>", {"test": "testing"}
             ).props_to_html(),
-            " test=testing"
+            ' test="testing"'
         )
         self.assertEqual(
             HTMLNode(
@@ -22,7 +23,7 @@ class TestHTMLNode(unittest.TestCase):
                     "test3": "testing3"
                 }
             ).props_to_html(),
-            " test=testing test2=testing2 test3=testing3"
+            ' test="testing" test2="testing2" test3="testing3"'
         )
         with self.assertRaises(TypeError):
             HTMLNode("<h1>", "value", "<p>").props_to_html()
