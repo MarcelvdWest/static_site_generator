@@ -14,6 +14,9 @@ class HTMLNode():
         self.children = children
         self.props = props
 
+    def __eq__(self, other_node: "HTMLNode"):
+        return self.tag == other_node.tag and self.children == other_node.children and self.props == other_node.props
+
     def to_html(self):
         raise NotImplementedError
 

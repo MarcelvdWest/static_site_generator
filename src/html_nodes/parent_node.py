@@ -9,6 +9,9 @@ class ParentNode(HTMLNode):
         props: dict | None = None
     ):
         super().__init__(tag=tag, children=children, props=props)
+    
+    def __eq__(self, other_node: "ParentNode"):
+        return self.tag == other_node.tag and self.children == other_node.children and self.props == other_node.props
 
     def to_html(self):
         if not self.tag and not self.children:

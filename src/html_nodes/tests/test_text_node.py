@@ -3,7 +3,8 @@ import unittest
 from src.html_nodes.text_node import (
     TextNode,
     TextType,
-    text_node_to_html_node
+    text_node_to_html_node,
+    split_nodes_delimiter
 )
 
 
@@ -19,7 +20,7 @@ class TestTextNode(unittest.TestCase):
         )
         diffTypeNode = TextNode(
             "This is a text node",
-            TextType.NORMAL.value
+            TextType.TEXT.value
         )
         diffTextNode = TextNode(
             "This is another text node",
@@ -42,7 +43,7 @@ class TestTextNode(unittest.TestCase):
         )
         diffTypeNodeUrl = TextNode(
             "This is a text node",
-            TextType.NORMAL.value,
+            TextType.TEXT.value,
             "https://www.google.com"
         )
         diffTextNodeUrl = TextNode(
@@ -61,7 +62,7 @@ class TestTextNode(unittest.TestCase):
         self.assertNotEqual(boldNodeWithUrl, diffUrlNodeUrl)
 
     def test_text_node_to_html(self):
-        node = TextNode("This is a text node", TextType.NORMAL)
+        node = TextNode("This is a text node", TextType.TEXT)
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, None)
         self.assertEqual(html_node.value, "This is a text node")
@@ -115,6 +116,20 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(
             html_node.to_html(),
             '<img src="image.png" alt="image"></img>'
+        )
+
+    def test_text_node_split_node_delimiter(self):
+        node = TextNode("This is text with a `code block` word", TextType.TEXT)
+        # html_node = text_node_to_html_node(node)
+        # self.assertEqual(html_node.tag, None)
+        # self.assertEqual(html_node.value, "This is a text node")
+        self.assertEqual(
+            split_nodes_delimiter([node], "`", TextType.CODE),
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" word", TextType.TEXT),
+            ]
         )
 
 
